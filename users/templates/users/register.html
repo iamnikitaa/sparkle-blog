@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Join Today</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already have an account?
+            <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+        </small>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const emailInput = document.querySelector("#id_email"); // Django usually assigns "id_email"
+
+        function validateEmail() {
+            const email = emailInput.value;
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email format
+            if (!regex.test(email)) {
+                alert("Invalid email address! Please enter a valid email.");
+                return false;
+            }
+            return true;
+        }
+
+        form.addEventListener("submit", function (event) {
+            if (!validateEmail()) {
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
+
+{% endblock content %}
