@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['.vercel.app']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nonstatic',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'crispy_forms',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
