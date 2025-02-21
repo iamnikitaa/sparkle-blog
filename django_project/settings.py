@@ -29,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!py!%5)2*s-tkvks3dj2g1sg!_pb@$8g54rs+tmxcr40o(na@n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', 'localhost', '127.0.0.1','*']
+ALLOWED_HOSTS = ['.now.sh', 'localhost', '127.0.0.1','*']
 
 
 # Application definition
@@ -83,25 +83,12 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-DATABASE_URL = os.getenv('POSTGRES_URL')
-
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
-            ssl_require=True
-        )
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -162,7 +149,6 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -171,16 +157,11 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'debug.log',
-        },
     },
     'loggers': {
         'django': {
-            'handlers': ['console'] if os.getenv('SERVERLESS') else ['file'],
-            'level': 'DEBUG',
+            'handlers': ['console'],  # Use console instead of file
+            'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
         },
     },
