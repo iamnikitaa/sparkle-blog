@@ -29,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!py!%5)2*s-tkvks3dj2g1sg!_pb@$8g54rs+tmxcr40o(na@n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['.now.sh', 'localhost', '127.0.0.1','*']
+ALLOWED_HOSTS = ['web-production-a6ed2.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -137,9 +137,13 @@ CRISPY_TEMPLATE_PACK ='bootstrap4'
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'login'
 
-CSRF_USE_SESSIONS = True
-CSRF_COOKIE_SECURE = False  # False allows cookies over HTTP
-SESSION_COOKIE_SECURE = False  # Ensure sessions work over HTTP
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-production-a6ed2.up.railway.app"
+]
+
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_SECURE = True  # False allows cookies over HTTP
+SESSION_COOKIE_SECURE = True  # Ensure sessions work over HTTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
