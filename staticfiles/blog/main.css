@@ -1,3 +1,5 @@
+/* static/css/styles.css */
+
 body {
   background: #f4f1fa;
   color: #3d3d3d;
@@ -17,11 +19,11 @@ ul {
 }
 
 .site-header .navbar-nav .nav-link {
-  color: #9a8c98;
+  color: #5e548e; /* Default text color */
 }
 
 .site-header .navbar-nav .nav-link:hover {
-  color: #b5838d;
+  color: #b5838d; /* Hover text color */
 }
 
 .site-header .navbar-nav .nav-link.active {
@@ -30,7 +32,7 @@ ul {
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;                                                                                                                                                   
+  padding: 10px 20px;
   border: 1px solid #cabbe9;
   border-radius: 3px;
   margin-bottom: 20px;
