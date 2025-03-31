@@ -25,8 +25,7 @@ var/
 *.pot
 *.pyc
 db.sqlite3
-# media/
-static/
+
 
 # Virtual Environment
 venv/
